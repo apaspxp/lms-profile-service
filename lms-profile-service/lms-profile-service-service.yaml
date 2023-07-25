@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: lms-profile-service
+  name: lms-profile-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lms-profile-service
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: lms-profile-service
+    spec:
+      containers:
+        - image: isarthak/lms-profile-service:latest
+          name: lms-profile-service
+          resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: lms-profile-service
+  name: lms-profile-service
+spec:
+  ports:
+    - name: 8001-8001
+      port: 8001
+      protocol: TCP
+      targetPort: 8001
+      nodePort: 30000
+  selector:
+    app: lms-profile-service
+  type: NodePort
+status:
+  loadBalancer: {}
